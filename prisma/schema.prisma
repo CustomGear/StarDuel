@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      String   @default("USER")
+  companyId String?
+  company   Company? @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Company {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  website      String?
+  industry     String?
+  address      String?
+  googlePlaceId String? @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  users     User[]
+  staff     Staff[]
+  reviews   Review[]
+  campaigns Campaign[]
+
+  @@map("companies")
+}
+
+model Staff {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  position  String?
+  department String?
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  mentions Mention[]
+  reviews  Review[]
+
+  @@map("staff")
+}
+
+model Review {
+  id          String      @id @default(cuid())
+  title       String?
+  content     String
+  rating      Int
+  source      String
+  sourceId    String?     @unique     // External review ID
+  sourceUrl   String?
+  authorName  String?
+  authorEmail String?
+  companyId   String
+  company     Company     @relation(fields: [companyId], references: [id])
+  staffId     String?
+  staff       Staff?      @relation(fields: [staffId], references: [id])
+  sentiment   String?
+  isVerified  Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  mentions Mention[]
+
+  @@map("reviews")
+}
+
+model Mention {
+  id        String   @id @default(cuid())
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id])
+  staffId   String
+  staff     Staff    @relation(fields: [staffId], references: [id])
+  context   String?  // The text around the mention
+  sentiment String?
+  createdAt DateTime @default(now())
+
+  @@map("mentions")
+}
+
+model Campaign {
+  id          String        @id @default(cuid())
+  name        String
+  description String?
+  companyId   String
+  company     Company       @relation(fields: [companyId], references: [id])
+  type        String
+  status      String         @default("ACTIVE")
+  startDate   DateTime
+  endDate     DateTime?
+  targetCount Int?
+  currentCount Int          @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("campaigns")
+}
+
+model Analytics {
+  id        String   @id @default(cuid())
+  companyId String
+  date      DateTime
+  metric    String
+  value     Float
+  metadata  String?
+
+  @@map("analytics")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String
+  title     String
+  message   String
+  userId    String
+  companyId String
+  metadata  String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}
+
