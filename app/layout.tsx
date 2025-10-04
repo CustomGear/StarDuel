@@ -8,6 +8,20 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'SocialUp Reviews - Staff Review Tracking & Analytics',
   description: 'Track and analyze staff mentions in customer reviews across multiple platforms. Part of the SocialUp suite.',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
+  themeColor: '#2563eb',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'SocialUp Reviews - Staff Review Tracking & Analytics',
+    description: 'Track and analyze staff mentions in customer reviews across multiple platforms.',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SocialUp Reviews - Staff Review Tracking & Analytics',
+    description: 'Track and analyze staff mentions in customer reviews across multiple platforms.',
+  },
 }
 
 export default function RootLayout({
