@@ -261,7 +261,7 @@ export default function LandingPage() {
                 Try Demo Account
               </Link>
               <p className="text-sm text-gray-500 mt-4">Email: demo@starduel.ca | Password: demo123</p>
-              <p className="text-xs text-gray-400 mt-2">Updated homepage design - now live!</p>
+              <p className="text-xs text-gray-400 mt-2">Updated homepage design - now live! v2.0</p>
             </div>
           </div>
         </div>
