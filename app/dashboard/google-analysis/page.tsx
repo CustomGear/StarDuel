@@ -58,6 +58,7 @@ export default function GoogleAnalysisPage() {
   const [isConnected, setIsConnected] = useState(false)
 
   useEffect(() => {
+    if (typeof window === "undefined") return // Skip during SSR
     checkConnection()
   }, [])
 

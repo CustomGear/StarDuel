@@ -31,6 +31,7 @@ export default function GooglePublicAccessModal({
   const [usingMockData, setUsingMockData] = useState(false)
 
   useEffect(() => {
+    if (typeof window === "undefined") return // Skip during SSR
     if (searchTerm.length > 2) {
       searchPlaces(searchTerm)
       setShowSuggestions(true)

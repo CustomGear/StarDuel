@@ -38,6 +38,7 @@ export default function GoogleIntegrationPage() {
   const [isConnected, setIsConnected] = useState(false)
 
   useEffect(() => {
+    if (typeof window === "undefined") return // Skip during SSR
     // Check if user is connected to Google
     const checkConnection = async () => {
       try {
