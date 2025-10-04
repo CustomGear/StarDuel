@@ -32,8 +32,8 @@ async function main() {
   const adminUser = await prisma.user.create({
     data: {
       id: 'demo-admin',
-      email: 'admin@demo.com',
-      name: 'Demo Admin',
+      email: 'demo@starduel.ca',
+      name: 'Demo User',
       password: hashedPassword,
       role: 'ADMIN',
       companyId: company.id
@@ -235,7 +235,7 @@ async function main() {
   ])
 
   console.log('✅ Database seeded successfully!')
-  console.log('📧 Demo account: admin@demo.com')
+  console.log('📧 Demo account: demo@starduel.ca')
   console.log('🔑 Demo password: demo123')
 }
 
