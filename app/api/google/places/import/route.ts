@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { GoogleReviewsService } from '@/lib/google-reviews'
 import { prisma } from '@/lib/prisma'
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     const { placeId, placeName, placeAddress } = await request.json()
