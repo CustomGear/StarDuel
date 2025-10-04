@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
